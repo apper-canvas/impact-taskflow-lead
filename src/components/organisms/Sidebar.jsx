@@ -7,8 +7,9 @@ const Sidebar = ({ isOpen, onClose, projects, tasks }) => {
   const getProjectTaskCount = (projectId) => {
     return tasks.filter(t => t.project_id_c?.Id === projectId && t.status_c !== "completed").length;
   };
-  const navItems = [
+const navItems = [
     { to: "/", icon: "LayoutDashboard", label: "Dashboard" },
+    { to: "/pipeline", icon: "TrendingUp", label: "Sales Pipeline" },
     { to: "/completed", icon: "CheckCircle2", label: "Completed" }
   ];
 

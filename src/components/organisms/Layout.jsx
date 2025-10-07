@@ -4,16 +4,29 @@ import Header from "@/components/organisms/Header";
 import Sidebar from "@/components/organisms/Sidebar";
 import projectService from "@/services/api/projectService";
 import taskService from "@/services/api/taskService";
+import opportunityService from "@/services/api/opportunityService";
 
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [projects, setProjects] = useState([]);
+const [projects, setProjects] = useState([]);
+  const [opportunities, setOpportunities] = useState([]);
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
+useEffect(() => {
     loadProjects();
     loadTasks();
+    loadOpportunities();
   }, []);
+
+  const loadOpportunities = async () => {
+    try {
+      const data = await opportunityService.getAll();
+      setOpportunities(data);
+    } catch (error) {
+      console.error("Error loading opportunities:", error);
+      setOpportunities([]);
+    }
+  };
 
   const loadProjects = async () => {
     try {
@@ -43,8 +56,9 @@ const Layout = () => {
         <Sidebar
           isOpen={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
-          projects={projects}
+projects={projects}
           tasks={tasks}
+          opportunities={opportunities}
         />
         <main className="flex-1 min-h-[calc(100vh-4rem)]">
           <Outlet />

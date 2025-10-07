@@ -6,6 +6,7 @@ import { setUser, clearUser } from './store/userSlice';
 import Layout from "@/components/organisms/Layout";
 import Dashboard from "@/components/pages/Dashboard";
 import ProjectView from "@/components/pages/ProjectView";
+import SalesPipeline from "@/components/pages/SalesPipeline";
 import CompletedView from "@/components/pages/CompletedView";
 import Login from "@/components/pages/Login";
 import Signup from "@/components/pages/Signup";
@@ -139,9 +140,10 @@ function AppContent() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
         <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
-        <Route path="/" element={<Layout />}>
+<Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="project/:projectId" element={<ProjectView />} />
+          <Route path="pipeline" element={<SalesPipeline />} />
           <Route path="completed" element={<CompletedView />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
