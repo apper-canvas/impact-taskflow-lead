@@ -78,7 +78,6 @@ style={{ backgroundColor: project?.color_c }}
                   <div className="font-semibold text-slate-900">{project?.name_c}</div>
                 </div>
               </div>
-              <h1 className="text-2xl font-bold text-slate-900 mb-3">
 <h1 className="text-2xl font-bold text-slate-900 mb-3">
                 {task.title_c}
               </h1>
@@ -184,12 +183,12 @@ style={{ backgroundColor: project?.color_c }}
                     Delete Task
                   </>
                 )}
-              </Button>
+</Button>
             </div>
+          </div>
           </div>
         </motion.div>
       </div>
-
       {showEditModal && (
         <CreateTaskModal
           task={task}

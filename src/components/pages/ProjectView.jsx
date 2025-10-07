@@ -76,7 +76,6 @@ try {
 if (filterStatus !== "all" && task.status_c !== filterStatus) return false;
     if (filterPriority !== "all" && task.priority_c !== filterPriority) return false;
     return true;
-return true;
   });
 
   const todoTasks = filteredTasks.filter(t => t.status_c === "todo");
