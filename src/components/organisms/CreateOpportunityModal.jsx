@@ -9,32 +9,26 @@ import Textarea from "@/components/atoms/Textarea";
 import opportunityService from "@/services/api/opportunityService";
 
 const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company_name: "",
-    value: "",
-    stage: "lead",
-    priority: "medium",
-    probability: 50,
-    notes: ""
+const [formData, setFormData] = useState({
+    Name: "",
+    pipeline_name_c: "",
+    deal_size_c: "",
+    stage_c: "lead",
+    probability_c: 50,
+    Tags: ""
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
+useEffect(() => {
     if (opportunity) {
       setFormData({
-        name: opportunity.name || "",
-        email: opportunity.email || "",
-        phone: opportunity.phone || "",
-        company_name: opportunity.company_name || "",
-        value: opportunity.value || "",
-        stage: opportunity.stage || "lead",
-        priority: opportunity.priority || "medium",
-        probability: opportunity.probability || 50,
-        notes: opportunity.notes || ""
+        Name: opportunity.Name || "",
+        pipeline_name_c: opportunity.pipeline_name_c || "",
+        deal_size_c: opportunity.deal_size_c || "",
+        stage_c: opportunity.stage_c || "lead",
+        probability_c: opportunity.probability_c || 50,
+        Tags: opportunity.Tags || ""
       });
     }
   }, [opportunity]);
@@ -47,23 +41,19 @@ const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.name.trim()) {
-      newErrors.name = "Contact name is required";
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
     }
     
-    if (!formData.company_name.trim()) {
-      newErrors.company_name = "Company name is required";
+    if (!formData.pipeline_name_c.trim()) {
+      newErrors.pipeline_name_c = "Pipeline name is required";
     }
     
-    if (!formData.value || parseFloat(formData.value) <= 0) {
-      newErrors.value = "Value must be greater than 0";
-    }
-    
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+    if (!formData.deal_size_c || parseFloat(formData.deal_size_c) <= 0) {
+      newErrors.deal_size_c = "Deal size must be greater than 0";
     }
 
     setErrors(newErrors);
@@ -125,105 +115,73 @@ const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+<form onSubmit={handleSubmit} className="p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Contact Name <span className="text-red-500">*</span>
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  value={formData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                  placeholder="John Smith"
+                  value={formData.Name}
+                  onChange={(e) => handleChange('Name', e.target.value)}
+                  placeholder="Opportunity Name"
                   disabled={loading}
-                  className={errors.name ? 'border-red-500' : ''}
+                  className={errors.Name ? 'border-red-500' : ''}
                 />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                {errors.Name && (
+                  <p className="mt-1 text-sm text-red-600">{errors.Name}</p>
                 )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Company Name <span className="text-red-500">*</span>
+                  Pipeline Name <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  value={formData.company_name}
-                  onChange={(e) => handleChange('company_name', e.target.value)}
+                  value={formData.pipeline_name_c}
+                  onChange={(e) => handleChange('pipeline_name_c', e.target.value)}
                   placeholder="Acme Corporation"
                   disabled={loading}
-                  className={errors.company_name ? 'border-red-500' : ''}
+                  className={errors.pipeline_name_c ? 'border-red-500' : ''}
                 />
-                {errors.company_name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.company_name}</p>
+                {errors.pipeline_name_c && (
+                  <p className="mt-1 text-sm text-red-600">{errors.pipeline_name_c}</p>
                 )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  placeholder="john@acme.com"
-                  disabled={loading}
-                  className={errors.email ? 'border-red-500' : ''}
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Phone
-                </label>
-                <Input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleChange('phone', e.target.value)}
-                  placeholder="+1-555-0100"
-                  disabled={loading}
-                />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Deal Value <span className="text-red-500">*</span>
+                Deal Size <span className="text-red-500">*</span>
               </label>
               <Input
                 type="number"
-                value={formData.value}
-                onChange={(e) => handleChange('value', e.target.value)}
+                value={formData.deal_size_c}
+                onChange={(e) => handleChange('deal_size_c', e.target.value)}
                 placeholder="50000"
                 min="0"
                 step="1000"
                 disabled={loading}
-                className={errors.value ? 'border-red-500' : ''}
+                className={errors.deal_size_c ? 'border-red-500' : ''}
               />
-              {errors.value && (
-                <p className="mt-1 text-sm text-red-600">{errors.value}</p>
+              {errors.deal_size_c && (
+                <p className="mt-1 text-sm text-red-600">{errors.deal_size_c}</p>
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
                   Stage
                 </label>
                 <Select
-                  value={formData.stage}
-                  onChange={(e) => handleChange('stage', e.target.value)}
+                  value={formData.stage_c}
+                  onChange={(e) => handleChange('stage_c', e.target.value)}
                   disabled={loading}
                 >
-                  <option value="lead">Lead</option>
-                  <option value="qualified">Qualified</option>
-                  <option value="proposal">Proposal</option>
+                  <option value="lead">Prospecting</option>
+                  <option value="qualified">Qualification</option>
+                  <option value="proposal">Demo</option>
                   <option value="negotiation">Negotiation</option>
                   <option value="closed_won">Closed Won</option>
                   <option value="closed_lost">Closed Lost</option>
@@ -232,30 +190,15 @@ const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Priority
-                </label>
-                <Select
-                  value={formData.priority}
-                  onChange={(e) => handleChange('priority', e.target.value)}
-                  disabled={loading}
-                >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                </Select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Probability: {formData.probability}%
+                  Probability: {formData.probability_c}%
                 </label>
                 <input
                   type="range"
                   min="0"
                   max="100"
                   step="5"
-                  value={formData.probability}
-                  onChange={(e) => handleChange('probability', parseInt(e.target.value))}
+                  value={formData.probability_c}
+                  onChange={(e) => handleChange('probability_c', parseInt(e.target.value))}
                   disabled={loading}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
@@ -264,17 +207,15 @@ const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Notes
+                Tags
               </label>
-              <Textarea
-                value={formData.notes}
-                onChange={(e) => handleChange('notes', e.target.value)}
-                placeholder="Additional information about this opportunity..."
-                rows={4}
+              <Input
+                value={formData.Tags}
+                onChange={(e) => handleChange('Tags', e.target.value)}
+                placeholder="Enter tags separated by commas"
                 disabled={loading}
               />
             </div>
-
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
               <Button
                 type="button"

@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
 import OpportunityCard from "@/components/organisms/OpportunityCard";
 import CreateOpportunityModal from "@/components/organisms/CreateOpportunityModal";
 import ConfirmDialog from "@/components/organisms/ConfirmDialog";
+import Button from "@/components/atoms/Button";
 import opportunityService from "@/services/api/opportunityService";
 
 const SalesPipeline = () => {
@@ -20,10 +20,10 @@ const SalesPipeline = () => {
   const [deletingOpportunity, setDeletingOpportunity] = useState(null);
   const [draggingId, setDraggingId] = useState(null);
 
-  const stages = [
-    { id: "lead", label: "Lead", color: "bg-slate-500" },
-    { id: "qualified", label: "Qualified", color: "bg-blue-500" },
-    { id: "proposal", label: "Proposal", color: "bg-purple-500" },
+const stages = [
+    { id: "lead", label: "Prospecting", color: "bg-slate-500" },
+    { id: "qualified", label: "Qualification", color: "bg-blue-500" },
+    { id: "proposal", label: "Demo", color: "bg-purple-500" },
     { id: "negotiation", label: "Negotiation", color: "bg-amber-500" },
     { id: "closed_won", label: "Closed Won", color: "bg-green-500" },
     { id: "closed_lost", label: "Closed Lost", color: "bg-red-500" }
@@ -33,12 +33,12 @@ const SalesPipeline = () => {
     loadData();
   }, []);
 
-  const loadData = async () => {
+const loadData = async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await opportunityService.getAll();
-      setOpportunities(data);
+      setOpportunities(data || []);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -89,13 +89,13 @@ const SalesPipeline = () => {
     }
   };
 
-  const getOpportunitiesByStage = (stage) => {
-    return opportunities.filter(o => o.stage === stage);
+const getOpportunitiesByStage = (stage) => {
+    return opportunities.filter(o => o.stage_c === stage);
   };
 
-  const getStageValue = (stage) => {
+const getStageValue = (stage) => {
     return getOpportunitiesByStage(stage)
-      .reduce((sum, o) => sum + o.value, 0);
+      .reduce((sum, o) => sum + (o.deal_size_c || 0), 0);
   };
 
   const formatCurrency = (value) => {
@@ -107,14 +107,14 @@ const SalesPipeline = () => {
     }).format(value);
   };
 
-  const calculateMetrics = () => {
+const calculateMetrics = () => {
     const totalOpportunities = opportunities.length;
     const totalValue = opportunities
-      .filter(o => o.stage !== 'closed_lost')
-      .reduce((sum, o) => sum + o.value, 0);
+      .filter(o => o.stage_c !== 'closed_lost')
+      .reduce((sum, o) => sum + (o.deal_size_c || 0), 0);
     const avgDealSize = totalOpportunities > 0 ? totalValue / totalOpportunities : 0;
-    const closedWon = opportunities.filter(o => o.stage === 'closed_won').length;
-    const totalClosed = opportunities.filter(o => o.stage === 'closed_won' || o.stage === 'closed_lost').length;
+    const closedWon = opportunities.filter(o => o.stage_c === 'closed_won').length;
+    const totalClosed = opportunities.filter(o => o.stage_c === 'closed_won' || o.stage_c === 'closed_lost').length;
     const conversionRate = totalClosed > 0 ? (closedWon / totalClosed) * 100 : 0;
 
     return { totalOpportunities, totalValue, avgDealSize, conversionRate };

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 import ApperIcon from "@/components/ApperIcon";
 import Badge from "@/components/atoms/Badge";
 
@@ -32,9 +33,9 @@ const OpportunityCard = ({ opportunity, onEdit, onDelete, isDragging }) => {
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-slate-900 truncate mb-1">
-            {opportunity.company_name}
+{opportunity.pipeline_name_c}
           </h3>
-          <p className="text-sm text-slate-600 truncate">{opportunity.name}</p>
+          <p className="text-sm text-slate-600 truncate">{opportunity.Name}</p>
         </div>
         <div className="flex items-center gap-1 ml-2">
           <button
@@ -63,42 +64,19 @@ const OpportunityCard = ({ opportunity, onEdit, onDelete, isDragging }) => {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold text-primary">
-            {formatCurrency(opportunity.value)}
+{formatCurrency(opportunity.deal_size_c)}
           </span>
-          <Badge className={priorityColors[opportunity.priority]}>
-            {opportunity.priority}
-          </Badge>
         </div>
 
-        <div className="flex items-center gap-2 text-sm">
-          <div className="flex items-center gap-1 text-slate-600">
-            <ApperIcon name="Target" size={14} />
-            <span>{opportunity.probability}%</span>
-          </div>
-        </div>
-
-        {opportunity.email && (
-          <div className="flex items-center gap-1.5 text-xs text-slate-600 truncate">
-            <ApperIcon name="Mail" size={12} />
-            <span className="truncate">{opportunity.email}</span>
-          </div>
-        )}
-
-        {opportunity.phone && (
+        <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 text-xs text-slate-600">
-            <ApperIcon name="Phone" size={12} />
-            <span>{opportunity.phone}</span>
+            <ApperIcon name="Target" size={14} />
+            <span>{opportunity.probability_c}%</span>
           </div>
-        )}
-
-        {opportunity.notes && (
-          <p className="text-xs text-slate-500 line-clamp-2 mt-2 pt-2 border-t border-slate-100">
-            {opportunity.notes}
-          </p>
-        )}
+        </div>
       </div>
     </motion.div>
-  );
+);
 };
 
 export default OpportunityCard;
