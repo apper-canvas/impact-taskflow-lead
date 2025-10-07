@@ -71,9 +71,9 @@ const Dashboard = () => {
     );
   }
 
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(t => t.status === "completed").length;
-  const inProgressTasks = tasks.filter(t => t.status === "in_progress").length;
+const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.status_c === "completed").length;
+  const inProgressTasks = tasks.filter(t => t.status_c === "in_progress").length;
   const todoTasks = tasks.filter(t => t.status === "todo").length;
 
   return (
@@ -185,7 +185,7 @@ const Dashboard = () => {
       <ConfirmDialog
         isOpen={!!deletingProject}
         title="Delete Project"
-        message={`Are you sure you want to delete "${deletingProject?.name}"? This will also delete all tasks in this project.`}
+message={`Are you sure you want to delete "${deletingProject?.name_c}"? This will also delete all tasks in this project.`}
         confirmLabel="Delete"
         onConfirm={handleDeleteProject}
         onCancel={() => setDeletingProject(null)}

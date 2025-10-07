@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { format } from "date-fns";
+import React from "react";
 import ApperIcon from "@/components/ApperIcon";
 import Badge from "@/components/atoms/Badge";
 import { cn } from "@/utils/cn";
 
 const TaskCard = ({ task, project, onClick, onStatusChange }) => {
-  const isOverdue = task.status !== "completed" && task.dueDate && task.dueDate < Date.now();
+const dueDate = task.due_date_c ? new Date(task.due_date_c).getTime() : null;
+  const isOverdue = task.status_c !== "completed" && dueDate && dueDate < Date.now();
   
   const statusIcons = {
     todo: "Circle",
@@ -36,43 +38,44 @@ const TaskCard = ({ task, project, onClick, onStatusChange }) => {
           className="flex-shrink-0 mt-1"
         >
           <ApperIcon
-            name={statusIcons[task.status]}
+name={statusIcons[task.status_c]}
             size={20}
             className={cn(
-              "transition-colors duration-200",
-              task.status === "completed" ? "text-success" :
-              task.status === "in_progress" ? "text-primary" :
+              "transition-colors",
+              task.status_c === "completed" ? "text-success" :
+              task.status_c === "in_progress" ? "text-primary" :
               "text-slate-400 hover:text-slate-600"
             )}
           />
         </button>
 
-        <div className="flex-1 min-w-0">
+<div className="flex-1 min-w-0">
           <h4 className={cn(
             "text-base font-semibold text-slate-900 mb-1",
-            task.status === "completed" && "line-through text-slate-500"
-          )}>
-            {task.title}
+            task.status_c === "completed" && "line-through text-slate-500"
+          )}
+          >
+            {task.title_c}
           </h4>
-          {task.description && (
+          {task.description_c && (
             <p className="text-sm text-slate-600 line-clamp-2 mb-3">
-              {task.description}
+              {task.description_c}
             </p>
           )}
           <div className="flex items-center gap-2 flex-wrap">
-            <Badge variant={task.status}>
-              {task.status.replace("_", " ")}
+            <Badge variant={task.status_c}>
+              {task.status_c.replace("_", " ")}
             </Badge>
-            <Badge variant={task.priority}>
-              {task.priority}
+<Badge variant={task.priority_c}>
+              {task.priority_c}
             </Badge>
-            {task.dueDate && (
+            {task.due_date_c && (
               <div className={cn(
                 "flex items-center gap-1 text-xs font-medium",
                 isOverdue ? "text-error" : "text-slate-600"
               )}>
                 <ApperIcon name="Calendar" size={14} />
-                {format(task.dueDate, "MMM d, yyyy")}
+                {format(new Date(task.due_date_c), "MMM d, yyyy")}
               </div>
             )}
           </div>

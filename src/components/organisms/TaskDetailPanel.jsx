@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Badge from "@/components/atoms/Badge";
 import CreateTaskModal from "@/components/organisms/CreateTaskModal";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
 import taskService from "@/services/api/taskService";
 
 const TaskDetailPanel = ({ task, project, projects, onClose, onUpdate, onDelete }) => {
@@ -30,7 +30,7 @@ const TaskDetailPanel = ({ task, project, projects, onClose, onUpdate, onDelete 
 
   const handleStatusChange = async (newStatus) => {
     try {
-      await taskService.update(task.Id, { status: newStatus });
+await taskService.update(task.Id, { status: newStatus, status_c: newStatus });
       toast.success("Task status updated!");
       onUpdate();
     } catch (error) {
@@ -71,61 +71,67 @@ const TaskDetailPanel = ({ task, project, projects, onClose, onUpdate, onDelete 
               <div className="flex items-center gap-2 mb-3">
                 <div
                   className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: project?.color }}
+style={{ backgroundColor: project?.color_c }}
                 />
-                <span className="text-sm font-semibold text-slate-600">
-                  {project?.name}
-                </span>
+                <div>
+                  <div className="text-xs text-slate-500 mb-1">Project</div>
+                  <div className="font-semibold text-slate-900">{project?.name_c}</div>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                {task.title}
-              </h3>
-              {task.description && (
-                <p className="text-slate-600 leading-relaxed">
-                  {task.description}
-                </p>
-              )}
-            </div>
+              <h1 className="text-2xl font-bold text-slate-900 mb-3">
+<h1 className="text-2xl font-bold text-slate-900 mb-3">
+                {task.title_c}
+              </h1>
+              <p className="text-slate-600 leading-relaxed">
+                {task.description_c}
+              </p>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Status
                 </label>
-                <div className="flex gap-2">
-                  {["todo", "in_progress", "completed"].map((status) => (
-                    <button
-                      key={status}
-                      onClick={() => handleStatusChange(status)}
-                      className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        task.status === status
-                          ? "bg-primary text-white shadow-md"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }`}
-                    >
-                      {status.replace("_", " ")}
-                    </button>
-                  ))}
+<div className="flex gap-2">
+                  {["todo", "in_progress", "completed"].map((status) => {
+                    const statusLabels = {
+                      todo: "To Do",
+                      in_progress: "In Progress",
+                      completed: "Completed"
+                    };
+                    return (
+                      <button
+                        key={status}
+                        onClick={() => handleStatusChange(status)}
+                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          task.status_c === status
+                            ? "bg-primary text-white"
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
+                      >
+                        {statusLabels[status]}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 mb-3">
                   Priority
                 </label>
-                <Badge variant={task.priority} className="text-sm px-4 py-2">
-                  {task.priority}
+<Badge variant={task.priority_c} className="text-sm px-4 py-2">
+                  {task.priority_c}
                 </Badge>
               </div>
 
-              {task.dueDate && (
+              {task.due_date_c && (
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Due Date
                   </label>
-                  <div className="flex items-center gap-2 text-slate-600">
+<div className="flex items-center gap-2 text-slate-600">
                     <ApperIcon name="Calendar" size={18} />
-                    <span>{format(task.dueDate, "MMMM d, yyyy")}</span>
+                    <span>{format(new Date(task.due_date_c), "MMMM d, yyyy")}</span>
                   </div>
                 </div>
               )}
@@ -136,18 +142,17 @@ const TaskDetailPanel = ({ task, project, projects, onClose, onUpdate, onDelete 
                 </label>
                 <div className="flex items-center gap-2 text-slate-600">
                   <ApperIcon name="Clock" size={18} />
-                  <span>{format(task.createdAt, "MMM d, yyyy 'at' h:mm a")}</span>
+                  <span>{format(new Date(task.created_at_c), "MMM d, yyyy 'at' h:mm a")}</span>
                 </div>
               </div>
-
-              {task.completedAt && (
+{task.completed_at_c && (
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Completed
                   </label>
                   <div className="flex items-center gap-2 text-success">
                     <ApperIcon name="CheckCircle2" size={18} />
-                    <span>{format(task.completedAt, "MMM d, yyyy 'at' h:mm a")}</span>
+                    <span>{format(new Date(task.completed_at_c), "MMM d, yyyy 'at' h:mm a")}</span>
                   </div>
                 </div>
               )}

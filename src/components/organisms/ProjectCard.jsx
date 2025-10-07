@@ -7,13 +7,13 @@ import ProgressRing from "@/components/molecules/ProgressRing";
 const ProjectCard = ({ project, tasks, onEdit, onDelete }) => {
   const navigate = useNavigate();
   
-  const projectTasks = tasks.filter(t => t.projectId === project.Id);
-  const completedTasks = projectTasks.filter(t => t.status === "completed").length;
-  const totalTasks = projectTasks.length;
-  const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-
-  const todoCount = projectTasks.filter(t => t.status === "todo").length;
-  const inProgressCount = projectTasks.filter(t => t.status === "in_progress").length;
+const projectTasks = tasks.filter(t => t.project_id_c?.Id === project.Id);
+  const completedTasks = projectTasks.filter(t => t.status_c === "completed").length;
+  const progress = projectTasks.length > 0 
+    ? Math.round((completedTasks / projectTasks.length) * 100) 
+    : 0;
+  const todoCount = projectTasks.filter(t => t.status_c === "todo").length;
+  const inProgressCount = projectTasks.filter(t => t.status_c === "in_progress").length;
 
   return (
     <motion.div
@@ -28,15 +28,15 @@ const ProjectCard = ({ project, tasks, onEdit, onDelete }) => {
           <div className="flex items-center gap-2 mb-2">
             <div
               className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: project.color }}
+style={{ backgroundColor: project.color_c }}
             />
-            <h3 className="text-lg font-bold text-slate-900">{project.name}</h3>
+            <h3 className="text-lg font-bold text-slate-900">{project.name_c}</h3>
           </div>
-          <p className="text-sm text-slate-600 line-clamp-2">
-            {project.description}
+          <p className="text-sm text-slate-600 line-clamp-2 mb-4">
+            {project.description_c}
           </p>
         </div>
-        <ProgressRing progress={progress} size={64} strokeWidth={6} color={project.color} />
+<ProgressRing progress={progress} size={64} strokeWidth={6} color={project.color_c} />
       </div>
 
       <div className="flex items-center gap-4 mb-4">

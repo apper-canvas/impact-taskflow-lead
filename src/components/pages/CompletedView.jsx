@@ -28,8 +28,8 @@ const CompletedView = () => {
         projectService.getAll(),
         taskService.getAll()
       ]);
-      setProjects(projectsData);
-      setTasks(tasksData.filter(t => t.status === "completed"));
+setProjects(projectsData);
+      setTasks(tasksData.filter(t => t.status_c === "completed"));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -79,7 +79,7 @@ const CompletedView = () => {
 
       <div className="space-y-3">
         {tasks.map((task, index) => {
-          const project = projects.find(p => p.Id === task.projectId);
+const project = projects.find(p => p.Id === task.project_id_c?.Id);
           return (
             <motion.div
               key={task.Id}
@@ -101,7 +101,7 @@ const CompletedView = () => {
       {selectedTask && (
         <TaskDetailPanel
           task={selectedTask}
-          project={projects.find(p => p.Id === selectedTask.projectId)}
+project={projects.find(p => p.Id === selectedTask.project_id_c?.Id)}
           projects={projects}
           onClose={() => setSelectedTask(null)}
           onUpdate={loadData}

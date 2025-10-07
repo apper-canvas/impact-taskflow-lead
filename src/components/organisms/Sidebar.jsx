@@ -5,9 +5,8 @@ import { cn } from "@/utils/cn";
 
 const Sidebar = ({ isOpen, onClose, projects, tasks }) => {
   const getProjectTaskCount = (projectId) => {
-    return tasks.filter(t => t.projectId === projectId && t.status !== "completed").length;
+    return tasks.filter(t => t.project_id_c?.Id === projectId && t.status_c !== "completed").length;
   };
-
   const navItems = [
     { to: "/", icon: "LayoutDashboard", label: "Dashboard" },
     { to: "/completed", icon: "CheckCircle2", label: "Completed" }
@@ -69,12 +68,12 @@ const Sidebar = ({ isOpen, onClose, projects, tasks }) => {
                     )
                   }
                 >
-                  <div
+<div
                     className="w-3 h-3 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: project.color }}
+                    style={{ backgroundColor: project.color_c }}
                   />
                   <span className="flex-1 text-sm font-medium text-slate-700 truncate">
-                    {project.name}
+                    {project.name_c}
                   </span>
                   {taskCount > 0 && (
                     <span className="px-2 py-0.5 text-xs font-bold text-slate-600 bg-slate-200 rounded-full">

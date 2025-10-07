@@ -10,10 +10,10 @@ import ProjectColorPicker from "@/components/molecules/ProjectColorPicker";
 import projectService from "@/services/api/projectService";
 
 const CreateProjectModal = ({ onClose, project }) => {
-  const [formData, setFormData] = useState({
-    name: project?.name || "",
-    description: project?.description || "",
-    color: project?.color || "#2563eb"
+const [formData, setFormData] = useState({
+    name: project?.name_c || "",
+    description: project?.description_c || "",
+    color: project?.color_c || "#2563eb"
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});

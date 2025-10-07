@@ -12,13 +12,13 @@ import PrioritySelector from "@/components/molecules/PrioritySelector";
 import taskService from "@/services/api/taskService";
 
 const CreateTaskModal = ({ onClose, projects, task, defaultProjectId }) => {
-  const [formData, setFormData] = useState({
-    projectId: task?.projectId || defaultProjectId || (projects[0]?.Id || ""),
-    title: task?.title || "",
-    description: task?.description || "",
-    status: task?.status || "todo",
-    priority: task?.priority || "medium",
-    dueDate: task?.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : ""
+const [formData, setFormData] = useState({
+    projectId: task?.project_id_c?.Id || defaultProjectId || (projects[0]?.Id || ""),
+    title: task?.title_c || "",
+    description: task?.description_c || "",
+    status: task?.status_c || "todo",
+    priority: task?.priority_c || "medium",
+    dueDate: task?.due_date_c ? new Date(task.due_date_c).toISOString().split("T")[0] : ""
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -41,10 +41,10 @@ const CreateTaskModal = ({ onClose, projects, task, defaultProjectId }) => {
 
     setLoading(true);
     try {
-      const taskData = {
+const taskData = {
         ...formData,
         projectId: parseInt(formData.projectId),
-        dueDate: formData.dueDate ? new Date(formData.dueDate).getTime() : null
+        dueDate: formData.dueDate ? formData.dueDate : null
       };
 
       if (task) {
@@ -104,8 +104,8 @@ const CreateTaskModal = ({ onClose, projects, task, defaultProjectId }) => {
               >
                 <option value="">Select a project</option>
                 {projects.map((project) => (
-                  <option key={project.Id} value={project.Id}>
-                    {project.name}
+<option key={project.Id} value={project.Id}>
+                    {project.name_c}
                   </option>
                 ))}
               </Select>

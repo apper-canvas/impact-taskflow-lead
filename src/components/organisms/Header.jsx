@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import CreateTaskModal from "@/components/organisms/CreateTaskModal";
-import CreateProjectModal from "@/components/organisms/CreateProjectModal";
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../App';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
+import CreateTaskModal from '@/components/organisms/CreateTaskModal';
+import CreateProjectModal from '@/components/organisms/CreateProjectModal';
 
 const Header = ({ onToggleSidebar, projects }) => {
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [showProjectModal, setShowProjectModal] = useState(false);
@@ -36,7 +38,7 @@ const Header = ({ onToggleSidebar, projects }) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+<div className="flex items-center gap-3">
           <Button
             variant="outline"
             size="md"
@@ -53,6 +55,15 @@ const Header = ({ onToggleSidebar, projects }) => {
           >
             <ApperIcon name="Plus" size={18} />
             <span className="hidden sm:inline">New Task</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={logout}
+            className="hidden sm:flex"
+          >
+            <ApperIcon name="LogOut" size={18} />
+            Logout
           </Button>
         </div>
       </header>

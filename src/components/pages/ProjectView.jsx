@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Select from "@/components/atoms/Select";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import Dashboard from "@/components/pages/Dashboard";
+import TaskDetailPanel from "@/components/organisms/TaskDetailPanel";
 import TaskCard from "@/components/organisms/TaskCard";
 import CreateTaskModal from "@/components/organisms/CreateTaskModal";
-import TaskDetailPanel from "@/components/organisms/TaskDetailPanel";
-import projectService from "@/services/api/projectService";
+import Select from "@/components/atoms/Select";
+import Button from "@/components/atoms/Button";
 import taskService from "@/services/api/taskService";
+import projectService from "@/services/api/projectService";
 
 const ProjectView = () => {
   const { projectId } = useParams();
@@ -51,8 +52,8 @@ const ProjectView = () => {
   };
 
   const handleStatusChange = async (task, newStatus) => {
-    try {
-      await taskService.update(task.Id, { status: newStatus });
+try {
+      await taskService.update(task.Id, { status: newStatus, status_c: newStatus });
       toast.success("Task status updated!");
       loadData();
     } catch (error) {
@@ -72,15 +73,15 @@ const ProjectView = () => {
   }
 
   const filteredTasks = tasks.filter(task => {
-    if (filterStatus !== "all" && task.status !== filterStatus) return false;
-    if (filterPriority !== "all" && task.priority !== filterPriority) return false;
+if (filterStatus !== "all" && task.status_c !== filterStatus) return false;
+    if (filterPriority !== "all" && task.priority_c !== filterPriority) return false;
     return true;
+return true;
   });
 
-  const todoTasks = tasks.filter(t => t.status === "todo");
-  const inProgressTasks = tasks.filter(t => t.status === "in_progress");
-  const completedTasks = tasks.filter(t => t.status === "completed");
-
+  const todoTasks = filteredTasks.filter(t => t.status_c === "todo");
+  const inProgressTasks = filteredTasks.filter(t => t.status_c === "in_progress");
+  const completedTasks = filteredTasks.filter(t => t.status_c === "completed");
   return (
     <div className="p-6">
       <div className="mb-8">
@@ -98,11 +99,11 @@ const ProjectView = () => {
           <div className="flex items-start gap-4">
             <div
               className="w-12 h-12 rounded-lg flex-shrink-0 shadow-lg"
-              style={{ backgroundColor: project.color }}
+style={{ backgroundColor: project.color_c }}
             />
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">{project.name}</h1>
-              <p className="text-slate-600">{project.description}</p>
+<div>
+              <h1 className="text-2xl font-bold text-slate-900">{project.name_c}</h1>
+              <p className="text-sm text-slate-600 mt-1">{project.description_c}</p>
             </div>
           </div>
           <Button
