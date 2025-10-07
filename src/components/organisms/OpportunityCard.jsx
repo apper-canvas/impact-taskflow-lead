@@ -30,10 +30,10 @@ const OpportunityCard = ({ opportunity, onEdit, onDelete, isDragging }) => {
         isDragging ? 'opacity-50 rotate-3' : ''
       }`}
     >
-      <div className="flex items-start justify-between mb-3">
+<div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-slate-900 truncate mb-1">
-{opportunity.pipeline_name_c}
+{opportunity.company_name_c}
           </h3>
           <p className="text-sm text-slate-600 truncate">{opportunity.Name}</p>
         </div>

@@ -130,10 +130,10 @@ const opportunityService = {
       });
 
       // Map UI fields to database fields, only updateable fields
-      const payload = {
+const payload = {
         records: [{
           Name: opportunity.Name || "",
-          pipeline_name_c: opportunity.pipeline_name_c || "",
+          company_name_c: opportunity.company_name_c || "",
           deal_size_c: parseFloat(opportunity.deal_size_c) || 0,
           stage_c: stageMapping[opportunity.stage_c] || 'Prospecting',
           probability_c: parseInt(opportunity.probability_c) || 0,
@@ -190,8 +190,8 @@ const opportunityService = {
         Id: parseInt(id)
       };
 
-      if (data.Name !== undefined) updateData.Name = data.Name;
-      if (data.pipeline_name_c !== undefined) updateData.pipeline_name_c = data.pipeline_name_c;
+if (data.Name !== undefined) updateData.Name = data.Name;
+      if (data.company_name_c !== undefined) updateData.company_name_c = data.company_name_c;
       if (data.deal_size_c !== undefined) updateData.deal_size_c = parseFloat(data.deal_size_c);
       if (data.stage_c !== undefined) updateData.stage_c = stageMapping[data.stage_c] || data.stage_c;
       if (data.probability_c !== undefined) updateData.probability_c = parseInt(data.probability_c);

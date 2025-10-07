@@ -11,7 +11,7 @@ import opportunityService from "@/services/api/opportunityService";
 const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
 const [formData, setFormData] = useState({
     Name: "",
-    pipeline_name_c: "",
+    company_name_c: "",
     deal_size_c: "",
     stage_c: "lead",
     probability_c: 50,
@@ -24,7 +24,7 @@ useEffect(() => {
     if (opportunity) {
       setFormData({
         Name: opportunity.Name || "",
-        pipeline_name_c: opportunity.pipeline_name_c || "",
+        company_name_c: opportunity.company_name_c || "",
         deal_size_c: opportunity.deal_size_c || "",
         stage_c: opportunity.stage_c || "lead",
         probability_c: opportunity.probability_c || 50,
@@ -48,7 +48,7 @@ const validateForm = () => {
       newErrors.Name = "Name is required";
     }
     
-    if (!formData.pipeline_name_c.trim()) {
+    if (!formData.company_name_c.trim()) {
       newErrors.pipeline_name_c = "Pipeline name is required";
     }
     
@@ -135,17 +135,17 @@ const validateForm = () => {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Pipeline Name <span className="text-red-500">*</span>
+                  Company Name <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  value={formData.pipeline_name_c}
-                  onChange={(e) => handleChange('pipeline_name_c', e.target.value)}
+                  value={formData.company_name_c}
+                  onChange={(e) => handleChange('company_name_c', e.target.value)}
                   placeholder="Acme Corporation"
                   disabled={loading}
-                  className={errors.pipeline_name_c ? 'border-red-500' : ''}
+                  className={errors.company_name_c ? 'border-red-500' : ''}
                 />
-                {errors.pipeline_name_c && (
-                  <p className="mt-1 text-sm text-red-600">{errors.pipeline_name_c}</p>
+                {errors.company_name_c && (
+                  <p className="mt-1 text-sm text-red-600">{errors.company_name_c}</p>
                 )}
               </div>
             </div>
