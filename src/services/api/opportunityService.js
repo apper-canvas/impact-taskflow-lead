@@ -28,9 +28,8 @@ const opportunityService = {
       });
 
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
-          {"field": {"Name": "pipeline_name_c"}},
           {"field": {"Name": "deal_size_c"}},
           {"field": {"Name": "stage_c"}},
           {"field": {"Name": "probability_c"}},
@@ -51,9 +50,8 @@ const opportunityService = {
 
       // Map database fields to UI format with stage conversion
       return response.data.map(record => ({
-        Id: record.Id,
+Id: record.Id,
         Name: record.Name || "",
-        pipeline_name_c: record.pipeline_name_c || "",
         deal_size_c: parseFloat(record.deal_size_c) || 0,
         stage_c: reverseStageMapping[record.stage_c] || 'lead',
         probability_c: parseInt(record.probability_c) || 0,
@@ -74,9 +72,8 @@ const opportunityService = {
       });
 
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
-          {"field": {"Name": "pipeline_name_c"}},
           {"field": {"Name": "deal_size_c"}},
           {"field": {"Name": "stage_c"}},
           {"field": {"Name": "probability_c"}},
@@ -96,10 +93,9 @@ const opportunityService = {
       }
 
       // Map database fields to UI format
-      return {
+return {
         Id: response.data.Id,
         Name: response.data.Name || "",
-        pipeline_name_c: response.data.pipeline_name_c || "",
         deal_size_c: parseFloat(response.data.deal_size_c) || 0,
         stage_c: reverseStageMapping[response.data.stage_c] || 'lead',
         probability_c: parseInt(response.data.probability_c) || 0,
@@ -133,7 +129,6 @@ const opportunityService = {
 const payload = {
 records: [{
           Name: opportunity.Name || "",
-          pipeline_name_c: opportunity.pipeline_name_c || "",
           deal_size_c: parseFloat(opportunity.deal_size_c) || 0,
           stage_c: stageMapping[opportunity.stage_c] || 'Prospecting',
           probability_c: parseInt(opportunity.probability_c) || 0,
@@ -159,9 +154,8 @@ records: [{
         const successful = response.results.filter(r => r.success);
         if (successful.length > 0 && successful[0].data) {
           return {
-            Id: successful[0].data.Id,
+Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            pipeline_name_c: successful[0].data.pipeline_name_c || "",
             deal_size_c: parseFloat(successful[0].data.deal_size_c) || 0,
             stage_c: reverseStageMapping[successful[0].data.stage_c] || 'lead',
             probability_c: parseInt(successful[0].data.probability_c) || 0,
@@ -191,12 +185,10 @@ records: [{
       };
 
 if (data.Name !== undefined) updateData.Name = data.Name;
-      if (data.company_name_c !== undefined) updateData.company_name_c = data.company_name_c;
       if (data.deal_size_c !== undefined) updateData.deal_size_c = parseFloat(data.deal_size_c);
       if (data.stage_c !== undefined) updateData.stage_c = stageMapping[data.stage_c] || data.stage_c;
       if (data.probability_c !== undefined) updateData.probability_c = parseInt(data.probability_c);
       if (data.Tags !== undefined) updateData.Tags = data.Tags;
-
       const payload = {
         records: [updateData]
       };
@@ -219,9 +211,8 @@ if (data.Name !== undefined) updateData.Name = data.Name;
         const successful = response.results.filter(r => r.success);
         if (successful.length > 0 && successful[0].data) {
           return {
-            Id: successful[0].data.Id,
+Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            pipeline_name_c: successful[0].data.pipeline_name_c || "",
             deal_size_c: parseFloat(successful[0].data.deal_size_c) || 0,
             stage_c: reverseStageMapping[successful[0].data.stage_c] || 'lead',
             probability_c: parseInt(successful[0].data.probability_c) || 0,
@@ -270,9 +261,8 @@ if (data.Name !== undefined) updateData.Name = data.Name;
         const successful = response.results.filter(r => r.success);
         if (successful.length > 0 && successful[0].data) {
           return {
-            Id: successful[0].data.Id,
+Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            pipeline_name_c: successful[0].data.pipeline_name_c || "",
             deal_size_c: parseFloat(successful[0].data.deal_size_c) || 0,
             stage_c: reverseStageMapping[successful[0].data.stage_c] || 'lead',
             probability_c: parseInt(successful[0].data.probability_c) || 0,

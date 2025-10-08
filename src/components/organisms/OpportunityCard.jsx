@@ -33,7 +33,7 @@ const OpportunityCard = ({ opportunity, onEdit, onDelete, isDragging }) => {
 <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-slate-900 truncate mb-1">
-{opportunity.company_name_c}
+{opportunity.Name}
           </h3>
           <p className="text-sm text-slate-600 truncate">{opportunity.Name}</p>
         </div>

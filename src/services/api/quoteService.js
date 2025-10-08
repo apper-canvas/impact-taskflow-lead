@@ -29,8 +29,7 @@ const quoteService = {
 
       const params = {
         fields: [
-          {"field": {"Name": "Name"}},
-          {"field": {"Name": "name_c"}},
+{"field": {"Name": "Name"}},
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "value_c"}},
           {"field": {"Name": "expected_close_date_c"}},
@@ -52,10 +51,9 @@ const quoteService = {
       }
 
       // Map database fields to UI format with status conversion
-      return response.data.map(record => ({
+return response.data.map(record => ({
         Id: record.Id,
         Name: record.Name || "",
-        name_c: record.name_c || "",
         description_c: record.description_c || "",
         value_c: parseFloat(record.value_c) || 0,
         expected_close_date_c: record.expected_close_date_c || null,
@@ -77,9 +75,8 @@ const quoteService = {
       });
 
       const params = {
-        fields: [
+fields: [
           {"field": {"Name": "Name"}},
-          {"field": {"Name": "name_c"}},
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "value_c"}},
           {"field": {"Name": "expected_close_date_c"}},
@@ -101,9 +98,8 @@ const quoteService = {
 
       // Map database fields to UI format
       return {
-        Id: response.data.Id,
+Id: response.data.Id,
         Name: response.data.Name || "",
-        name_c: response.data.name_c || "",
         description_c: response.data.description_c || "",
         value_c: parseFloat(response.data.value_c) || 0,
         expected_close_date_c: response.data.expected_close_date_c || null,
@@ -136,8 +132,8 @@ const quoteService = {
 
       // Map UI fields to database fields, only updateable fields
       const payload = {
-        records: [{
-          name_c: quote.name_c || "",
+records: [{
+          Name: quote.Name || "",
           description_c: quote.description_c || "",
           value_c: parseFloat(quote.value_c) || 0,
           expected_close_date_c: quote.expected_close_date_c || null,
@@ -166,7 +162,7 @@ const quoteService = {
           return {
             Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            name_c: successful[0].data.name_c || "",
+Name: successful[0].data.Name || "",
             description_c: successful[0].data.description_c || "",
             value_c: parseFloat(successful[0].data.value_c) || 0,
             expected_close_date_c: successful[0].data.expected_close_date_c || null,
@@ -196,7 +192,7 @@ const quoteService = {
         Id: parseInt(id)
       };
 
-      if (data.name_c !== undefined) updateData.name_c = data.name_c;
+if (data.Name !== undefined) updateData.Name = data.Name;
       if (data.description_c !== undefined) updateData.description_c = data.description_c;
       if (data.value_c !== undefined) updateData.value_c = parseFloat(data.value_c);
       if (data.expected_close_date_c !== undefined) updateData.expected_close_date_c = data.expected_close_date_c;
@@ -221,13 +217,11 @@ const quoteService = {
           const errorMsg = failed[0].message || "Failed to update quote";
           throw new Error(errorMsg);
         }
-
-        const successful = response.results.filter(r => r.success);
+const successful = response.results.filter(r => r.success);
         if (successful.length > 0 && successful[0].data) {
           return {
             Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            name_c: successful[0].data.name_c || "",
             description_c: successful[0].data.description_c || "",
             value_c: parseFloat(successful[0].data.value_c) || 0,
             expected_close_date_c: successful[0].data.expected_close_date_c || null,
@@ -276,10 +270,9 @@ const quoteService = {
 
         const successful = response.results.filter(r => r.success);
         if (successful.length > 0 && successful[0].data) {
-          return {
+return {
             Id: successful[0].data.Id,
             Name: successful[0].data.Name || "",
-            name_c: successful[0].data.name_c || "",
             description_c: successful[0].data.description_c || "",
             value_c: parseFloat(successful[0].data.value_c) || 0,
             expected_close_date_c: successful[0].data.expected_close_date_c || null,

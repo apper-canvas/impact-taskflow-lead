@@ -9,8 +9,8 @@ import Button from "@/components/atoms/Button";
 import quoteService from "@/services/api/quoteService";
 
 const CreateQuoteModal = ({ quote, onClose, onSuccess }) => {
-  const [formData, setFormData] = useState({
-    name_c: "",
+const [formData, setFormData] = useState({
+    Name: "",
     description_c: "",
     value_c: "",
     expected_close_date_c: "",
@@ -22,8 +22,8 @@ const CreateQuoteModal = ({ quote, onClose, onSuccess }) => {
 
   useEffect(() => {
     if (quote) {
-      setFormData({
-        name_c: quote.name_c || "",
+setFormData({
+        Name: quote.Name || "",
         description_c: quote.description_c || "",
         value_c: quote.value_c || "",
         expected_close_date_c: quote.expected_close_date_c || "",
@@ -41,13 +41,12 @@ const CreateQuoteModal = ({ quote, onClose, onSuccess }) => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.name_c.trim()) {
-      newErrors.name_c = "Name is required";
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
     }
-    
     if (!formData.value_c || parseFloat(formData.value_c) <= 0) {
       newErrors.value_c = "Value must be greater than 0";
     }
@@ -123,19 +122,19 @@ const handleSubmit = async (e) => {
           </div>
 
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <div>
+<div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
                 Quote Name <span className="text-red-500">*</span>
               </label>
               <Input
-                value={formData.name_c}
-                onChange={(e) => handleChange('name_c', e.target.value)}
+                value={formData.Name}
+                onChange={(e) => handleChange('Name', e.target.value)}
                 placeholder="Q2 Enterprise Package"
                 disabled={loading}
-                className={errors.name_c ? 'border-red-500' : ''}
+                className={errors.Name ? 'border-red-500' : ''}
               />
-              {errors.name_c && (
-                <p className="mt-1 text-sm text-red-600">{errors.name_c}</p>
+              {errors.Name && (
+                <p className="mt-1 text-sm text-red-600">{errors.Name}</p>
               )}
             </div>
 
