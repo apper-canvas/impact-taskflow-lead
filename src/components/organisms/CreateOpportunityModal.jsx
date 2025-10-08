@@ -11,7 +11,7 @@ import opportunityService from "@/services/api/opportunityService";
 const CreateOpportunityModal = ({ opportunity, onClose, onSuccess }) => {
 const [formData, setFormData] = useState({
     Name: "",
-    company_name_c: "",
+    pipeline_name_c: "",
     deal_size_c: "",
     stage_c: "lead",
     probability_c: 50,
@@ -22,9 +22,9 @@ const [formData, setFormData] = useState({
 
 useEffect(() => {
     if (opportunity) {
-      setFormData({
+setFormData({
         Name: opportunity.Name || "",
-        company_name_c: opportunity.company_name_c || "",
+        pipeline_name_c: opportunity.pipeline_name_c || "",
         deal_size_c: opportunity.deal_size_c || "",
         stage_c: opportunity.stage_c || "lead",
         probability_c: opportunity.probability_c || 50,
@@ -48,8 +48,8 @@ const validateForm = () => {
       newErrors.Name = "Name is required";
     }
     
-if (!formData.company_name_c.trim()) {
-      newErrors.company_name_c = "Company name is required";
+if (!formData.pipeline_name_c.trim()) {
+      newErrors.pipeline_name_c = "Pipeline name is required";
     }
     
     if (!formData.deal_size_c || parseFloat(formData.deal_size_c) <= 0) {
@@ -133,19 +133,19 @@ if (!formData.company_name_c.trim()) {
                 )}
               </div>
 
-              <div>
+<div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Company Name <span className="text-red-500">*</span>
+                  Pipeline Name <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  value={formData.company_name_c}
-                  onChange={(e) => handleChange('company_name_c', e.target.value)}
-                  placeholder="Acme Corporation"
+                  value={formData.pipeline_name_c}
+                  onChange={(e) => handleChange('pipeline_name_c', e.target.value)}
+                  placeholder="Enterprise Deal Pipeline"
                   disabled={loading}
-                  className={errors.company_name_c ? 'border-red-500' : ''}
+                  className={errors.pipeline_name_c ? 'border-red-500' : ''}
                 />
-                {errors.company_name_c && (
-                  <p className="mt-1 text-sm text-red-600">{errors.company_name_c}</p>
+                {errors.pipeline_name_c && (
+                  <p className="mt-1 text-sm text-red-600">{errors.pipeline_name_c}</p>
                 )}
               </div>
             </div>
