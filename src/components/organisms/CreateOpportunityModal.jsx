@@ -48,8 +48,8 @@ const validateForm = () => {
       newErrors.Name = "Name is required";
     }
     
-    if (!formData.company_name_c.trim()) {
-      newErrors.pipeline_name_c = "Pipeline name is required";
+if (!formData.company_name_c.trim()) {
+      newErrors.company_name_c = "Company name is required";
     }
     
     if (!formData.deal_size_c || parseFloat(formData.deal_size_c) <= 0) {
