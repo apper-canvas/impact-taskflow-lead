@@ -60,7 +60,7 @@ const CreateQuoteModal = ({ quote, onClose, onSuccess }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -71,14 +71,20 @@ const CreateQuoteModal = ({ quote, onClose, onSuccess }) => {
     setLoading(true);
     try {
       if (quote) {
-        await quoteService.update(quote.Id, formData);
-        toast.success("Quote updated successfully!");
+        const result = await quoteService.update(quote.Id, formData);
+        if (result) {
+          toast.success("Quote updated successfully!");
+          onSuccess();
+          onClose();
+        }
       } else {
-        await quoteService.create(formData);
-        toast.success("Quote created successfully!");
+        const result = await quoteService.create(formData);
+        if (result) {
+          toast.success("Quote created successfully!");
+          onSuccess();
+          onClose();
+        }
       }
-      onSuccess();
-      onClose();
     } catch (error) {
       toast.error(error.message || "Failed to save quote");
     } finally {
