@@ -7,6 +7,7 @@ import Layout from "@/components/organisms/Layout";
 import Dashboard from "@/components/pages/Dashboard";
 import ProjectView from "@/components/pages/ProjectView";
 import SalesPipeline from "@/components/pages/SalesPipeline";
+import Quotes from "@/components/pages/Quotes";
 import CompletedView from "@/components/pages/CompletedView";
 import Login from "@/components/pages/Login";
 import Signup from "@/components/pages/Signup";
@@ -14,7 +15,6 @@ import Callback from "@/components/pages/Callback";
 import ErrorPage from "@/components/pages/ErrorPage";
 import ResetPassword from "@/components/pages/ResetPassword";
 import PromptPassword from "@/components/pages/PromptPassword";
-
 export const AuthContext = createContext(null);
 
 function AppContent() {
@@ -144,6 +144,7 @@ function AppContent() {
           <Route index element={<Dashboard />} />
           <Route path="project/:projectId" element={<ProjectView />} />
           <Route path="pipeline" element={<SalesPipeline />} />
+          <Route path="quotes" element={<Quotes />} />
           <Route path="completed" element={<CompletedView />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

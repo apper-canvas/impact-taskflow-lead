@@ -5,17 +5,18 @@ import Sidebar from "@/components/organisms/Sidebar";
 import projectService from "@/services/api/projectService";
 import taskService from "@/services/api/taskService";
 import opportunityService from "@/services/api/opportunityService";
-
+import quoteService from "@/services/api/quoteService";
 const Layout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-const [projects, setProjects] = useState([]);
+const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
   const [opportunities, setOpportunities] = useState([]);
+  const [quotes, setQuotes] = useState([]);
   const [tasks, setTasks] = useState([]);
-
 useEffect(() => {
     loadProjects();
     loadTasks();
     loadOpportunities();
+    loadQuotes();
   }, []);
 
   const loadOpportunities = async () => {
@@ -44,6 +45,15 @@ useEffect(() => {
     } catch (error) {
       console.error("Error loading tasks:", error);
     }
+};
+
+  const loadQuotes = async () => {
+    try {
+      const data = await quoteService.getAll();
+      setQuotes(data || []);
+    } catch (error) {
+      console.error("Error loading quotes:", error);
+    }
   };
 
   return (
@@ -59,6 +69,7 @@ useEffect(() => {
 projects={projects}
           tasks={tasks}
           opportunities={opportunities}
+          quotes={quotes}
         />
         <main className="flex-1 min-h-[calc(100vh-4rem)]">
           <Outlet />
