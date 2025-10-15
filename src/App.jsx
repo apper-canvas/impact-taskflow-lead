@@ -8,6 +8,7 @@ import Dashboard from "@/components/pages/Dashboard";
 import ProjectView from "@/components/pages/ProjectView";
 import SalesPipeline from "@/components/pages/SalesPipeline";
 import Quotes from "@/components/pages/Quotes";
+import Contacts from "@/components/pages/Contacts";
 import CompletedView from "@/components/pages/CompletedView";
 import Login from "@/components/pages/Login";
 import Signup from "@/components/pages/Signup";
@@ -143,6 +144,7 @@ function AppContent() {
 <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="project/:projectId" element={<ProjectView />} />
+          <Route path="contacts" element={<Contacts />} />
           <Route path="pipeline" element={<SalesPipeline />} />
           <Route path="quotes" element={<Quotes />} />
           <Route path="completed" element={<CompletedView />} />

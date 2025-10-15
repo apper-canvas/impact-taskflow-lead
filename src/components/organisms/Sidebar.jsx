@@ -9,6 +9,7 @@ const Sidebar = ({ isOpen, onClose, projects, tasks }) => {
   };
 const navItems = [
     { to: "/", icon: "LayoutDashboard", label: "Dashboard" },
+    { to: "/contacts", icon: "Users", label: "Contacts" },
     { to: "/pipeline", icon: "TrendingUp", label: "Sales Pipeline" },
     { to: "/quotes", icon: "FileQuote", label: "Quotes" },
     { to: "/completed", icon: "CheckCircle2", label: "Completed" }
