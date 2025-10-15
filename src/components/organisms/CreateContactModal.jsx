@@ -9,23 +9,15 @@ import FormField from "@/components/molecules/FormField";
 import contactService from "@/services/api/contactService";
 
 const CreateContactModal = ({ onClose, contact, onSuccess }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     first_name_c: contact?.first_name_c || "",
     last_name_c: contact?.last_name_c || "",
     email_c: contact?.email_c || "",
     phone_c: contact?.phone_c || "",
-    company_c: contact?.company_c || "",
-    status_c: contact?.status_c || "prospect"
+    company_c: contact?.company_c || ""
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
-  const statusOptions = [
-    { value: "prospect", label: "Prospect" },
-    { value: "active", label: "Active" },
-    { value: "customer", label: "Customer" },
-    { value: "inactive", label: "Inactive" }
-  ];
 
   const validate = () => {
     const newErrors = {};
@@ -145,16 +137,7 @@ const CreateContactModal = ({ onClose, contact, onSuccess }) => {
                 onChange={(e) => setFormData({ ...formData, company_c: e.target.value })}
                 placeholder="Company name"
               />
-            </FormField>
-
-            <FormField label="Status" required>
-              <Select
-                value={formData.status_c}
-                onChange={(e) => setFormData({ ...formData, status_c: e.target.value })}
-                options={statusOptions}
-              />
-            </FormField>
-
+</FormField>
             <div className="flex items-center gap-3 pt-4">
               <Button
                 type="button"
